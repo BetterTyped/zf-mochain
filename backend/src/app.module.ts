@@ -4,6 +4,7 @@ import {ConfigModule, ConfigService} from "nestjs-config";
 import { resolve } from 'path';
 import {AppService} from "./app.service";
 import {AppController} from "./app.controller";
+import { CacheModule } from './cache/cache.module';
 
 @Module({
   imports: [
@@ -20,6 +21,10 @@ import {AppController} from "./app.controller";
     Web3Module.forFeatureAsync({
       name: 'contract',
       useFactory: async (configService: ConfigService) => configService.get('web3'),
+      inject: [ConfigService],
+    }),
+    CacheModule.forRootAsync({
+      useFactory: (configService: ConfigService) => configService.get('redis'),
       inject: [ConfigService],
     })
   ],

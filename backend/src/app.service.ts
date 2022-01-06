@@ -16,6 +16,11 @@ export class AppService {
     console.log(data.returnValues);
   }
 
+  interact() {
+    this.contract.methods.postData("mercedes").send({ from: '0x18908c013b069cCD0232578Bcff1ef9b3425e7a1'}).then(function(receipt) { return receipt})
+
+  }
+
 
 
 
