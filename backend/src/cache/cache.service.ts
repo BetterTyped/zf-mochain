@@ -5,7 +5,7 @@ import Ioredis from 'ioredis';
 
 @Injectable()
 export class CacheService {
-  private redisClient: Ioredis.Redis
+  private readonly redisClient: Ioredis.Redis;
 
   constructor(
     @Inject(CACHE_OPTIONS) cacheOptions: CacheOptions,
