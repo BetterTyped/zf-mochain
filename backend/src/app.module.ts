@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { Web3Module } from './web3/web3.module';
-import {ConfigModule, ConfigService} from "nestjs-config";
+import { ConfigModule, ConfigService } from 'nestjs-config';
 import { resolve } from 'path';
-import {AppService} from "./app.service";
-import {AppController} from "./app.controller";
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
+import { DbModule } from './db/db.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 import { CacheModule } from './cache/cache.module';
 
 @Module({
@@ -11,7 +14,7 @@ import { CacheModule } from './cache/cache.module';
     ConfigModule.load(
       resolve(__dirname, 'config', '**/!(*.d).config.{ts,js}'),
       {
-        modifyConfigName: name => name.replace('.config', ''),
+        modifyConfigName: (name) => name.replace('.config', ''),
       },
     ),
     Web3Module.forRootAsync({
@@ -20,15 +23,20 @@ import { CacheModule } from './cache/cache.module';
     }),
     Web3Module.forFeatureAsync({
       name: 'contract',
-      useFactory: async (configService: ConfigService) => configService.get('web3'),
+      useFactory: async (configService: ConfigService) =>
+        configService.get('web3'),
       inject: [ConfigService],
     }),
     CacheModule.forRootAsync({
       useFactory: (configService: ConfigService) => configService.get('redis'),
       inject: [ConfigService],
-    })
+    }),
+    DbModule,
+    AuthModule,
+    UsersModule,
+    CacheModule,
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService],
 })
 export class AppModule {}
