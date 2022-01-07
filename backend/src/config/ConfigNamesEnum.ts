@@ -5,5 +5,5 @@ export enum ConfigNamesEnum {
   jwtRefresh = 'jwt-refresh',
   logger = 'logger',
   redis = 'redis',
-  webhook = 'webhook',
+  web3 = 'web3',
 }
