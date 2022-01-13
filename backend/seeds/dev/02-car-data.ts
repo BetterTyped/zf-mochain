@@ -23,9 +23,10 @@ const generateData = () => {
   for (let i = 0; i < 100; i++) {
 
     const carData = {
-      id: i+1,
+      // id: i+1,
       sender_address: pick(i, addresses),
       car_brand: pick(i, carBrands),
+      car_type: 'Passenger',
       weather: {
         units: 'metric',
         temperature: pick(i, temperature),

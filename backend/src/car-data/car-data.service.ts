@@ -21,8 +21,7 @@ export class CarDataService {
     }
 
     try {
-      const { senderAddress, carData } = data.returnValue;
-      this.logger.info(`Car data from ${senderAddress} received`);
+      const { senderAddress, carData } = data.returnValues;
       const carDataJson: IncomingCarData = JSON.parse(carData);
 
       await this.carData.query()
@@ -31,9 +30,9 @@ export class CarDataService {
           ...carDataJson,
         });
 
-      this.logger.info(`Car data from ${senderAddress} saved`);
+      console.log(`Car data from ${senderAddress} saved`);
     } catch(err) {
-      this.logger.error(err);
+      console.log(err)
     }
 
   }

@@ -11,6 +11,9 @@ import {WinstonModule} from "nest-winston";
 import { CarDataModule } from './car-data/car-data.module';
 import {ObjectionModule} from "@willsoto/nestjs-objection";
 import {knexSnakeCaseMappers} from "objection";
+import { AnomalyModule } from './anomaly/anomaly.module';
+import {AppSevice} from "./app.sevice";
+import {AppController} from "./app.controller";
 
 
 @Module({
@@ -53,6 +56,9 @@ import {knexSnakeCaseMappers} from "objection";
     AuthModule,
     UsersModule,
     CarDataModule,
+    AnomalyModule,
   ],
+  providers: [AppSevice],
+  controllers: [AppController]
 })
 export class AppModule {}

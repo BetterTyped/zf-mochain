@@ -59,6 +59,6 @@ export class Web3SubscribersLoader
 
     const { contract, event, options = {} } = eventListenerMetadata;
     const localContract = await this.moduleRef.resolve(contract);
-    localContract.events[event](options, instance[methodKey]);
+    localContract.events[event](options, instance[methodKey].bind(instance));
   }
 }
